@@ -1,0 +1,13 @@
+ofxAssimpModelLoader
+ofxGPS
+ofxGui
+ofxKinect
+ofxNetwork
+ofxOpenCv
+ofxOsc
+ofxPoco
+ofxSvg
+ofxThreadedImageLoader
+ofxUnitTests
+ofxVectorGraphics
+ofxXmlSettings
