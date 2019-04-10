@@ -12,6 +12,8 @@ OpenFrameworks has many addons for animation such as:
 * ofxManipulator
 * ofxPhysical
 
+I will also be using OpenFramework's 3D library to create the shapes of the planets.
+
 
 ## Past Experience
 I am a part of ACM's SIGGraph, where I've worked with 3d modeling and animation before. While all the 3d modeling I have done previously is through Maya and does not have any coding involved, it should still help make it easier to create the visualization of the solar system. I also have an art background, which should help me create the textures for all my celestial bodies.
