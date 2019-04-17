@@ -20,5 +20,31 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
+    ofSpherePrimitive sun;
+    ofSpherePrimitive mercury;
+    ofSpherePrimitive venus;
+    ofSpherePrimitive earth;
+    ofSpherePrimitive mars;
+    ofSpherePrimitive saturn;
+    ofSpherePrimitive jupiter;
+    ofSpherePrimitive neptune;
+    ofSpherePrimitive uranus;
+    ofSpherePrimitive pluto;
+    ofLight light;
+    ofTexture mTexSun;
+    ofTexture mTexMercury;
+    ofTexture mTexVenus;
+    ofTexture mTexEarth;
+    ofTexture mTexMars;
+    ofTexture mTexSaturn;
+    ofTexture mTexJupiter;
+    ofTexture mTexNeptune;
+    ofTexture mTexUranus;
+    ofTexture mTexPluto;
+    ofTexture mTex;
+    ofEasyCam cam;
+    string textures[10] = {"sun.jpg", "mercury.jpg", "venus.gif", "earth.jpg", "mars.png", "jupiter.jpg", "saturn.jpg", "uranus.jpg", "neptune.jpg", "pluto.jpg"};
+    ofSpherePrimitive celestial_bodies[10] = {sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto};
 		
 };
