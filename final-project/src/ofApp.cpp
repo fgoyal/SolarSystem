@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofBackground(0,0,0);
     ofDisableAlphaBlending();
     ofEnableDepthTest();
 //    light.enable();
@@ -9,9 +10,8 @@ void ofApp::setup(){
 //    light.lookAt(ofVec3f(0,0,0));
     
     ofDisableArbTex();
-//    ofLoadImage(mTexSun,textures[0]);
-//    ofLoadImage(mTexMercury,textures[1]);
-//    ofLoadImage(mTexEarth,textures[3]);
+    ofLoadImage(mTexSun,textures[0]);
+    ofLoadImage(mTexEarth,textures[3]);
 //    mTexEarth.generateMipmap();
     //ofTexture.setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_NEAREST);
     
@@ -34,15 +34,21 @@ void ofApp::draw(){
     float screenHeight = ofGetHeight();
     float width = screenWidth * 0.15;
     cam.begin();
-    for (int i = 0; i < 10; i++) {
-        earth.setPosition(-screenWidth * .5 + screenWidth *  3/4.f, screenHeight *  0.1/6.f, 0);
-        
-        sun.setRadius(width);
-        ofLoadImage(mTex,textures[i]);
-        mTex.bind();
-        celestial_bodies[i].draw();
-        mTex.unbind();
-    }
+    mTexSun.bind();
+    sun.draw();
+    mTexSun.unbind();
+    mTexEarth.bind();
+    earth.draw();
+    mTexEarth.unbind();
+//    for (int i = 0; i < 10; i++) {
+//        earth.setPosition(-screenWidth * .5 + screenWidth *  3/4.f, screenHeight *  0.1/6.f, 0);
+//
+//        sun.setRadius(width);
+//        ofLoadImage(mTex,textures[i]);
+//        mTex.bind();
+//        celestial_bodies[i].draw();
+//        mTex.unbind();
+//    }
     cam.end();
 
 }

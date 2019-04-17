@@ -33,15 +33,7 @@ class ofApp : public ofBaseApp{
     ofSpherePrimitive pluto;
     ofLight light;
     ofTexture mTexSun;
-    ofTexture mTexMercury;
-    ofTexture mTexVenus;
     ofTexture mTexEarth;
-    ofTexture mTexMars;
-    ofTexture mTexSaturn;
-    ofTexture mTexJupiter;
-    ofTexture mTexNeptune;
-    ofTexture mTexUranus;
-    ofTexture mTexPluto;
     ofTexture mTex;
     ofEasyCam cam;
     string textures[10] = {"sun.jpg", "mercury.jpg", "venus.gif", "earth.jpg", "mars.png", "jupiter.jpg", "saturn.jpg", "uranus.jpg", "neptune.jpg", "pluto.jpg"};
