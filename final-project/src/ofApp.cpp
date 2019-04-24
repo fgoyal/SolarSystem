@@ -12,34 +12,25 @@ void ofApp::setup(){
 //    light.lookAt(ofVec3f(0,0,0));
     
     ofDisableArbTex();
-    ofLoadImage(mTexSun,textures[0]);
-    ofLoadImage(mTexEarth,textures[3]);
-//    mTexEarth.generateMipmap();
-    //ofTexture.setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_NEAREST);
-    
-    float screenWidth = ofGetWidth();
-    float screenHeight = ofGetHeight();
-    float width = screenWidth * 0.15;
-//    earth.setPosition(screenWidth * 0.25, 0, 0);
-//    -1024*.5 + 1024*
-    //std::cout << screenWidth;
-    sun.setRadius(diameters[0] / 2 * kRadiusScaler);
-    earth.setRadius(diameters[9] / 2 * kRadiusScaler);
-    sun.setPosition(distance_from_sun[0] * kDistanceScaler, 0, 0);
-    earth.setPosition(distance_from_sun[9] * kDistanceScaler, 0, 0);
-//    mercury.setRadius(diameters[5] / 2 * kRadiusScaler);
-//    mercury.setPosition(distance_from_sun[5], 0, 0);
-    std::cout << sun.getX();
-    std::cout << sun.getY();
-    std::cout << sun.getZ() << '\n';
-    std::cout << earth.getX();
-    std::cout << earth.getY();
-    std::cout << earth.getZ() << '\n';
-    std::cout << earth.getRadius();
-    
+    double total_distance = 0;
     for (int i = 0; i < kNumCelestialBodies; i++) {
-        ofVec3f position(distance_from_sun[i] * kDistanceScaler, 0, 0);
-        CelestialBody planet(names[i], (diameters[i] / 2) * kRadiusScaler, textures[i], position);
+        
+        // scale radius so each radius is closer to average
+        double scaled_radius = (kAvgRadius + kDampeningScalerRadius * ((diameters[i] / 2) - kAvgRadius)) * kRadiusScaler;
+        
+        // scale distance so each distance is closer to average
+        double scaled_distance = (kAvgDistance + kDampeningScalerDistance * (distance[i] - kAvgDistance)) * kDistanceScaler;
+        
+        // get total distance
+        total_distance += scaled_distance;
+
+        if (i == 0) {
+            total_distance -=scaled_distance;
+        }
+        
+        ofVec3f position(total_distance, 0, 0);
+        cout << names[i] << ": " << total_distance << '\n';
+        CelestialBody planet(names[i], scaled_radius, textures[i], position);
         celestial_bodies.push_back(planet);
     }
                                  
@@ -57,27 +48,11 @@ void ofApp::draw(){
     float screenHeight = ofGetHeight();
     float width = screenWidth * 0.15;
     cam.begin();
-//    mTexSun.bind();
-//    sun.draw();
-//    mTexSun.unbind();
-//    mTexEarth.bind();
-//    earth.draw();
-//    mTexEarth.unbind();
     for (int i = 0; i < kNumCelestialBodies; i++) {
         celestial_bodies[i].GetTexture().bind();
         celestial_bodies[i].GetObject().draw();
         celestial_bodies[i].GetTexture().unbind();
     }
-//    mercury.draw();
-//    for (int i = 0; i < 10; i++) {
-//        earth.setPosition(-screenWidth * .5 + screenWidth *  3/4.f, screenHeight *  0.1/6.f, 0);
-//
-//        sun.setRadius(width);
-//        ofLoadImage(mTex,textures[i]);
-//        mTex.bind();
-//        celestial_bodies[i].draw();
-//        mTex.unbind();
-//    }
     cam.end();
 
 }
