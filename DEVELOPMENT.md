@@ -11,6 +11,8 @@ I mostly experimented with manipulating different 3d shapes using OpenFramework'
 - Created CelestialBody objects including actual data from the solar system
 - Got static scale model of solar system working with actual distances and radiuses scaled, however the differences in distance and size made most planets come off screen. When distance was scaled smaller, the planets began to combine with each other.
 ![scaled system errors](ScalingIssue.png)
+- Updated model so that the radius's of the planets were normalized to come closer to the average. With the normalized sizes but regularly scaled distances, the planets spread across too far.
+![distance scaling issues](NormalizedSizeDistanceUnscaled.png)
 
 
 
