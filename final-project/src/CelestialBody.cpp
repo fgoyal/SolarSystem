@@ -11,15 +11,18 @@ CelestialBody::CelestialBody(const string set_name, const double set_radius, con
     name = set_name;
     radius = set_radius;
     image = set_image;
-    SetTexture(image);
     position = set_position;
-    SetPosition(position);
-}
-
-void CelestialBody::SetTexture(string set_image) {
-    texture.loadImage(set_image);
-}
-
-void CelestialBody::SetPosition(ofVec3f set_position) {
+    
+    ofLoadImage(texture, image);
+    planet_body.setRadius(radius);
     planet_body.setPosition(set_position);
+    
 }
+
+//void CelestialBody::SetTexture(string set_image) {
+//    texture.loadImage(set_image);
+//}
+//
+//void CelestialBody::SetPosition(ofVec3f set_position) {
+//    planet_body.setPosition(set_position);
+//}

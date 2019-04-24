@@ -25,7 +25,8 @@ class ofApp : public ofBaseApp{
     
     private:
         const static int kNumCelestialBodies = 10;
-        constexpr const static double kRadiusScaler = 0.0002;
+        constexpr const static double kRadiusScaler = 0.001;
+        constexpr const static double kDistanceScaler = 0.086;
         ofSpherePrimitive sun;
         ofSpherePrimitive mercury;
         ofSpherePrimitive venus;
@@ -43,7 +44,7 @@ class ofApp : public ofBaseApp{
         ofEasyCam cam;
     
         string names[kNumCelestialBodies] = {"Sun", "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
-        double diameters[kNumCelestialBodies] = {1391000, 4879, 12104, 12756, 6792, 142984, 120536, 51118, 49528, 2370};
+        double diameters[kNumCelestialBodies] = {1391000/5, 4879, 12104, 12756, 6792, 142984, 120536, 51118, 49528, 2370};
         double distance_from_sun[kNumCelestialBodies] = {0, 57.9, 108.2, 149.6, 227.9, 778.6, 1433.5, 2872.5, 4495.1, 5906.4};
         string textures[kNumCelestialBodies] = {"sun.jpg", "mercury.jpg", "venus.gif", "earth.jpg", "mars.png", "jupiter.jpg", "saturn.jpg", "uranus.jpg", "neptune.jpg", "pluto.jpg"};
     //    ofSpherePrimitive celestial_bodies[10] = {sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto};

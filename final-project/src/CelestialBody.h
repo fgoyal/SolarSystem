@@ -13,7 +13,7 @@
 class CelestialBody {
 private:
     string name;
-    ofImage texture;
+    ofTexture texture;
     string image;
     ofSpherePrimitive planet_body;
     double radius;
@@ -25,8 +25,8 @@ private:
 public:
     CelestialBody(const string set_name, const double set_radius, const string set_image, ofVec3f set_position);
     
-    void SetTexture(string set_image);
-    void SetPosition(ofVec3f set_position);
+//    void SetTexture(string set_image);
+//    void SetPosition(ofVec3f set_position);
     
     string GetName() {
         return name;
@@ -52,7 +52,7 @@ public:
         return planet_body;
     }
     
-    ofImage GetTexture() {
+    ofTexture GetTexture() {
         return texture;
     }
 

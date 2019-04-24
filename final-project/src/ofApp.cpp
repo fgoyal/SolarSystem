@@ -24,18 +24,21 @@ void ofApp::setup(){
 //    -1024*.5 + 1024*
     //std::cout << screenWidth;
     sun.setRadius(diameters[0] / 2 * kRadiusScaler);
-    earth.setRadius(diameters[3] / 2 * kRadiusScaler);
-    sun.setPosition(distance_from_sun[0] * 1000000 * kRadiusScaler, 0, 0);
-    earth.setPosition(distance_from_sun[3] * 1000000 * kRadiusScaler, 0, 0);
+    earth.setRadius(diameters[9] / 2 * kRadiusScaler);
+    sun.setPosition(distance_from_sun[0] * kDistanceScaler, 0, 0);
+    earth.setPosition(distance_from_sun[9] * kDistanceScaler, 0, 0);
+//    mercury.setRadius(diameters[5] / 2 * kRadiusScaler);
+//    mercury.setPosition(distance_from_sun[5], 0, 0);
     std::cout << sun.getX();
     std::cout << sun.getY();
     std::cout << sun.getZ() << '\n';
     std::cout << earth.getX();
     std::cout << earth.getY();
     std::cout << earth.getZ() << '\n';
+    std::cout << earth.getRadius();
     
     for (int i = 0; i < kNumCelestialBodies; i++) {
-        ofVec3f position(distance_from_sun[i] * 1000000 * kRadiusScaler, 0, 0);
+        ofVec3f position(distance_from_sun[i] * kDistanceScaler, 0, 0);
         CelestialBody planet(names[i], (diameters[i] / 2) * kRadiusScaler, textures[i], position);
         celestial_bodies.push_back(planet);
     }
@@ -54,12 +57,18 @@ void ofApp::draw(){
     float screenHeight = ofGetHeight();
     float width = screenWidth * 0.15;
     cam.begin();
-    mTexSun.bind();
-    sun.draw();
-    mTexSun.unbind();
-    mTexEarth.bind();
-    earth.draw();
-    mTexEarth.unbind();
+//    mTexSun.bind();
+//    sun.draw();
+//    mTexSun.unbind();
+//    mTexEarth.bind();
+//    earth.draw();
+//    mTexEarth.unbind();
+    for (int i = 0; i < kNumCelestialBodies; i++) {
+        celestial_bodies[i].GetTexture().bind();
+        celestial_bodies[i].GetObject().draw();
+        celestial_bodies[i].GetTexture().unbind();
+    }
+//    mercury.draw();
 //    for (int i = 0; i < 10; i++) {
 //        earth.setPosition(-screenWidth * .5 + screenWidth *  3/4.f, screenHeight *  0.1/6.f, 0);
 //
