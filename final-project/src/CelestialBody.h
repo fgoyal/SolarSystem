@@ -13,17 +13,20 @@
 class CelestialBody {
 private:
     string name;
-    ofTexture texture;
+    ofImage texture;
     string image;
-    ofSpherePrimitive object;
+    ofSpherePrimitive planet_body;
     double radius;
     double orbit;
     double orbit_radius;
     vector<ofQuaternion> rotations;
+    ofVec3f position;
     
 public:
-    CelestialBody(string set_name, double set_radius, string set_image);
-    ~CelestialBody();
+    CelestialBody(const string set_name, const double set_radius, const string set_image, ofVec3f set_position);
+    
+    void SetTexture(string set_image);
+    void SetPosition(ofVec3f set_position);
     
     string GetName() {
         return name;
@@ -42,14 +45,14 @@ public:
     }
     
     double GetRadius() {
-        return object.getRadius();
+        return planet_body.getRadius();
     }
     
     ofSpherePrimitive GetObject() {
-        return object;
+        return planet_body;
     }
     
-    ofTexture GetTexture() {
+    ofImage GetTexture() {
         return texture;
     }
 

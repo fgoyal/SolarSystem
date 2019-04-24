@@ -1,4 +1,6 @@
 #include "ofApp.h"
+#include "CelestialBody.h"
+#include <vector>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -18,9 +20,27 @@ void ofApp::setup(){
     float screenWidth = ofGetWidth();
     float screenHeight = ofGetHeight();
     float width = screenWidth * 0.15;
-    earth.setPosition(-screenWidth * .5 + screenWidth *  3/4.f, screenHeight *  0.1/6.f, 0);
+//    earth.setPosition(screenWidth * 0.25, 0, 0);
+//    -1024*.5 + 1024*
+    //std::cout << screenWidth;
+    sun.setRadius(diameters[0] / 2 * kRadiusScaler);
+    earth.setRadius(diameters[3] / 2 * kRadiusScaler);
+    sun.setPosition(distance_from_sun[0] * 1000000 * kRadiusScaler, 0, 0);
+    earth.setPosition(distance_from_sun[3] * 1000000 * kRadiusScaler, 0, 0);
+    std::cout << sun.getX();
+    std::cout << sun.getY();
+    std::cout << sun.getZ() << '\n';
+    std::cout << earth.getX();
+    std::cout << earth.getY();
+    std::cout << earth.getZ() << '\n';
     
-    sun.setRadius(width);
+    for (int i = 0; i < kNumCelestialBodies; i++) {
+        ofVec3f position(distance_from_sun[i] * 1000000 * kRadiusScaler, 0, 0);
+        CelestialBody planet(names[i], (diameters[i] / 2) * kRadiusScaler, textures[i], position);
+        celestial_bodies.push_back(planet);
+    }
+                                 
+    
 }
 
 //--------------------------------------------------------------

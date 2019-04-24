@@ -7,9 +7,19 @@
 
 #include <CelestialBody.h>
 
-CelestialBody::CelestialBody(string set_name, double set_radius, string set_image) {
+CelestialBody::CelestialBody(const string set_name, const double set_radius, const string set_image, const ofVec3f set_position) {
     name = set_name;
     radius = set_radius;
     image = set_image;
-    
+    SetTexture(image);
+    position = set_position;
+    SetPosition(position);
+}
+
+void CelestialBody::SetTexture(string set_image) {
+    texture.loadImage(set_image);
+}
+
+void CelestialBody::SetPosition(ofVec3f set_position) {
+    planet_body.setPosition(set_position);
 }
