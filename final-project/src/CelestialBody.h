@@ -16,19 +16,22 @@ private:
     ofTexture texture;
     string image;
     ofSpherePrimitive planet_body;
-    double radius;
+    double scaled_radius;
+    double real_radius;
     double orbit;
     double orbit_radius;
     double rotation_period;
-    vector<ofQuaternion> rotations;
+    ofQuaternion rotations;
     double position;
     
 public:
-    CelestialBody(const string set_name, const double set_radius, const string set_image, const double set_rotation_period, const double set_position);
+    CelestialBody(const string _name, const double _scaled_radius, const double _real_radius, const string _image, const double _rotation_period, const double _position, const ofQuaternion _rotation);
     
 //    void SetTexture(string set_image);
 //    void SetPosition(ofVec3f set_position);
-    void draw();
+    void draw(bool show_labels, bool show_radiuses);
+    void ShowNames();
+    void ShowRadiuses();
     
     string GetName() {
         return name;
@@ -42,7 +45,7 @@ public:
         return orbit_radius;
     }
     
-    vector<ofQuaternion> GetRotations() {
+    ofQuaternion GetRotations() {
         return rotations;
     }
     

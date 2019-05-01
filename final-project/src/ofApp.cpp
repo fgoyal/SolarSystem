@@ -119,18 +119,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    //    ofBackground(0,0,0);
-    //    ofDisableAlphaBlending();
-    //    ofEnableDepthTest();
-    light.enable();
-
-    light.setPosition(ofVec3f(100,100,200));
-    light.lookAt(ofVec3f(0,0,0));
-
     ofDisableArbTex();
 
     background.load("stars_background.png");
-
 
     double total_distance = 0;
     for (int i = 0; i < kNumCelestialBodies; i++) {
@@ -151,7 +142,7 @@ void ofApp::setup(){
 //        ofVec3f position(total_distance, 0, 0);
 //        cout << names[i] << ": " << scaled_radius << '\n';
 //        cout << names[i] << ": " << total_distance << '\n';
-        CelestialBody planet(names[i], scaled_radius, textures[i], 0, total_distance);
+        CelestialBody planet(names[i], scaled_radius, diameters[i]/2, textures[i], orbital_speed[i], total_distance, ofQuaternion(0.01, ofVec3f(0.0, 1.0, 0.0)));
         celestial_bodies.push_back(planet);
         total_distance += scaled_radius;
     }
@@ -165,46 +156,84 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    //    ofEnableLighting();
     float screenWidth = ofGetWidth();
     float screenHeight = ofGetHeight();
+    
     ofDisableDepthTest();
-    ofEnableLighting();
     background.draw(0, 0, screenWidth, screenHeight);
-    ofDisableLighting();
-    //    ofPushMatrix();
-    //    ofTranslate(ofGetWidth()/2,ofGetHeight()/2,0);
-    ofSetColor(255); //will be black if this is not included
-
-    background.getTexture().bind();
-    //    backdrop.resizeToTexture(background.getTexture());
-    //    backdrop.set(ofGetWidth(), ofGetHeight());
-    //    backdrop.draw();
-    background.getTexture().unbind();
+    
     ofPopMatrix();
     ofEnableDepthTest();
-
-    //ofEnableAlphaBlending();
-    //    ofEnableDepthTest();
-
+    
+    // set center of screen to 0,0
+    ofTranslate(screenWidth/2, screenHeight/2);
+    
+    // draw the planets and stars
     cam.begin();
     for (int i = 0; i < kNumCelestialBodies; i++) {
-//        celestial_bodies[i].GetTexture().bind();
-//        if (i == 0) {
-//            celestial_bodies[i].GetObject().rotate(0.01, 0.0, 0.1, 0);
-//        } else {
-//            celestial_bodies[i].GetObject().rotate(0.1, 0.0, 0.1, 0); // rotate on itself
-//        }
-//        celestial_bodies[i].GetObject().draw();
-//        celestial_bodies[i].GetTexture().unbind();
-        celestial_bodies[i].draw();
+        celestial_bodies[i].draw(show_names, show_radius);
+//        celestial_bodies[i].GetObject().setParent(celestial_bodies[0]);
     }
     cam.end();
+    DrawHelp();
+}
+
+//--------------------------------------------------------------
+// Draw help panel (TODO: use ofxGui)
+void ofApp::DrawHelp() {
+    stringstream helpStream;
+    
+    ofSetColor(255);
+    
+    helpStream << "h: " << (show_help ? "hide" : "show") << " help";
+    
+    if (show_help) {
+        helpStream << endl;
+        helpStream << "1: show planet names: " << (show_names ? "YES" : "NO") << endl;
+        helpStream << "2: show planet radiuses: " << (show_radius ? "YES" : "NO") << endl;
+//        helpStream << "c: cycle cameras: ";
+//        switch (camIndex) {
+//            case 0:
+//                helpStream << "ofEasyCam";
+//                break;
+//
+//            case 1:
+//                helpStream << "ofxSphereCam";
+//                break;
+//
+//            case 2:
+//                helpStream << "freecam";
+//                break;
+//
+//        };
+//        helpStream << endl;
+//        helpStream << "move cameras with mouse:" << endl
+//        << "  - left button: rotate" << endl
+//        << "  - middle or m: xy translate" << endl
+//        << "  - right: z translate" << endl;
+//        helpStream << "r: reset cam" << endl;
+        helpStream << "f: toggle full screen";
+    }
+    
+    ofDrawBitmapStringHighlight(helpStream.str(), -ofGetScreenWidth()/2 + 10, -ofGetScreenHeight()/2 + 10);
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    if (key =='f') {
+        ofToggleFullscreen();
+    }
+    if (key == '1') {
+        show_names = !show_names;
+    }
+    if (key == '2') {
+        show_radius = !show_radius;
+    }
+    
+    if (key == 'h') {
+        show_help = !show_help;
+    }
 }
 
 //--------------------------------------------------------------
