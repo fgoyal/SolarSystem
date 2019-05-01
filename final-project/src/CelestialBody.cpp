@@ -21,7 +21,7 @@ CelestialBody::CelestialBody(const string _name, const double _scaled_radius, co
     
 }
 
-void CelestialBody::draw(bool show_labels, bool show_radiuses, bool animate_orbits) {
+void CelestialBody::draw(bool show_labels, bool animate_orbits) {
     // spin around axis
     planet_body.rotate(1, 0, 1.0, 0.0);
     
@@ -35,10 +35,6 @@ void CelestialBody::draw(bool show_labels, bool show_radiuses, bool animate_orbi
     
     if (show_labels) {
         ShowNames();
-    }
-    
-    if (show_radiuses) {
-        ShowRadiuses();
     }
 }
 
@@ -63,15 +59,6 @@ void CelestialBody::ShowNames() {
     ofPushMatrix();
 //    ofTranslate(position, scaled_radius + 15, 0);
     ofDrawBitmapString(name, 0, 0);
-    ofPopMatrix();
-}
-
-void CelestialBody::ShowRadiuses() {
-    ofPushMatrix();
-//    ofTranslate(position, scaled_radius + 5, 0);
-    int radius = (int) real_radius;
-    std::string radius_string = "Radius: " + std::to_string(radius) + "km";
-    ofDrawBitmapString(radius_string, 0, 0);
     ofPopMatrix();
 }
 

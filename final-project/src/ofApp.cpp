@@ -167,12 +167,12 @@ void ofApp::draw(){
     ofEnableDepthTest();
     
     // set center of screen to 0,0
-    ofTranslate(screenWidth/2, screenHeight/2);
+//    ofTranslate(screenWidth/2, screenHeight/2);
     
     // draw the planets and stars
     cam.begin();
     for (int i = 0; i < kNumCelestialBodies; i++) {
-        celestial_bodies[i].draw(show_names, show_radius, animate_orbits);
+        celestial_bodies[i].draw(show_names, animate_orbits);
 //        celestial_bodies[i].GetObject().setParent(celestial_bodies[0]);
     }
     cam.end();
@@ -190,92 +190,97 @@ void ofApp::DrawHelp() {
     
     if (show_help) {
         helpStream << endl;
-        helpStream << "1: show planet names: " << (show_names ? "YES" : "NO") << endl;
-        helpStream << "2: show planet radiuses: " << (show_radius ? "YES" : "NO") << endl;
-        helpStream << "s: animate planet orbits: " << (animate_orbits ? "YES" : "NO") << endl;
-//        helpStream << "c: cycle cameras: ";
-//        switch (camIndex) {
-//            case 0:
-//                helpStream << "ofEasyCam";
-//                break;
-//
-//            case 1:
-//                helpStream << "ofxSphereCam";
-//                break;
-//
-//            case 2:
-//                helpStream << "freecam";
-//                break;
-//
-//        };
-//        helpStream << endl;
-//        helpStream << "move cameras with mouse:" << endl
-//        << "  - left button: rotate" << endl
-//        << "  - middle or m: xy translate" << endl
-//        << "  - right: z translate" << endl;
-//        helpStream << "r: reset cam" << endl;
+        helpStream << "n: show planet names: " << (show_names ? "YES" : "NO") << endl;
+        helpStream << "1: show planet radii: " << (show_radius ? "YES" : "NO") << endl;
+        helpStream << "2: show planet distances: " << (show_distances ? "YES" : "NO") << endl;
+        helpStream << "3: show planet orbital velocities: " << (show_speeds ? "YES" : "NO") << endl;
+        helpStream << "4: show planet orbital periods: " << (show_periods ? "YES" : "NO") << endl;
+        helpStream << "o: animate planet orbits: " << (animate_orbits ? "YES" : "NO") << endl;
         helpStream << "f: toggle full screen";
     }
     
-    ofDrawBitmapStringHighlight(helpStream.str(), -ofGetScreenWidth()/2 + 10, -ofGetScreenHeight()/2 + 10);
+    ofDrawBitmapStringHighlight(helpStream.str(), kHelpPosition, kHelpPosition);
+    
+    int count = 0;
+    if (show_radius) {
+        DrawInformationBox(count, 'r');
+        count++;
+    }
+    if (show_distances) {
+        DrawInformationBox(count, 'd');
+        count++;
+    }
+    if (show_speeds) {
+        DrawInformationBox(count, 's');
+        count++;
+    }
+    if (show_periods) {
+        DrawInformationBox(count, 'p');
+        count++;
+    }
     
 }
 
 //--------------------------------------------------------------
-// Draw help panel (TODO: use ofxGui)
-void ofApp::DrawRadii() {
+void ofApp::DrawInformationBox(int count, char type) {
     stringstream helpStream;
     
     ofSetColor(255);
-    
-    helpStream << "h: " << (show_help ? "hide" : "show") << " help";
-    
-    if (show_help) {
-        helpStream << endl;
-        helpStream << "1: show planet names: " << (show_names ? "YES" : "NO") << endl;
-        helpStream << "2: show planet radiuses: " << (show_radius ? "YES" : "NO") << endl;
-        helpStream << "s: animate planet orbits: " << (animate_orbits ? "YES" : "NO") << endl;
-        //        helpStream << "c: cycle cameras: ";
-        //        switch (camIndex) {
-        //            case 0:
-        //                helpStream << "ofEasyCam";
-        //                break;
-        //
-        //            case 1:
-        //                helpStream << "ofxSphereCam";
-        //                break;
-        //
-        //            case 2:
-        //                helpStream << "freecam";
-        //                break;
-        //
-        //        };
-        //        helpStream << endl;
-        //        helpStream << "move cameras with mouse:" << endl
-        //        << "  - left button: rotate" << endl
-        //        << "  - middle or m: xy translate" << endl
-        //        << "  - right: z translate" << endl;
-        //        helpStream << "r: reset cam" << endl;
-        helpStream << "f: toggle full screen";
+    switch (type) {
+        case 'r': helpStream << "Planet Radii" << endl;
+            break;
+        case 'd': helpStream << "Planet Distances From Sun" << endl;
+            break;
+        case 's': helpStream << "Planet Orbital Speeds" << endl;
+            break;
+        case 'p': helpStream << "Planet Orbital Periods" << endl;
+            break;
+    }
+
+    for (int i = 0; i < kNumCelestialBodies; i++) {
+        helpStream << names[i] << ": ";
+        switch (type) {
+            case 'r': helpStream << (int) diameters[i] / 2 << " km" << endl;
+                break;
+            case 'd': helpStream << distance[i] << " * 10^6 km" << endl;
+                break;
+            case 's': helpStream << orbital_speed[i] << " km/s" << endl;
+                break;
+            case 'p': helpStream << orbital_period[i] << " days" << endl;
+                break;
+        }
     }
     
-    ofDrawBitmapStringHighlight(helpStream.str(), -ofGetScreenWidth()/2 + 10, -ofGetScreenHeight()/2 + 10);
-    
+    ofDrawBitmapStringHighlight(helpStream.str(), kHelpPosition, kInfoPosition + count * kInfoLength);
 }
+
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if (key =='f') {
         ofToggleFullscreen();
     }
-    if (key == '1') {
+    if (key == 'n') {
         show_names = !show_names;
     }
-    if (key == '2') {
+    
+    if (key == '1') {
         show_radius = !show_radius;
     }
     
-    if (key == 's') {
+    if (key == '2') {
+        show_distances = !show_distances;
+    }
+    
+    if (key == '3') {
+        show_speeds = !show_speeds;
+    }
+    
+    if (key == '4') {
+        show_periods = !show_periods;
+    }
+    
+    if (key == 'o') {
         animate_orbits = !animate_orbits;
     }
     

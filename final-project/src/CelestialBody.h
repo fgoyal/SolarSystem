@@ -34,7 +34,7 @@ public:
     /**
      * Create the planet with the texture wrapped around it
      */
-    void draw(bool show_labels, bool show_radiuses, bool animate_orbits);
+    void draw(bool show_labels, bool animate_orbits);
     ofVec3f GetPosition(bool animate_orbits);
     void ShowNames();
     void ShowRadiuses();

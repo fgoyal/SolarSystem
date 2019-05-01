@@ -31,6 +31,9 @@ private:
     constexpr const static double kDampeningScalerDistance = 0.75;
     constexpr const static double kDistanceScaler = 0.05;
     constexpr const static double kAvgDistance = 590.64;
+    const static int kHelpPosition = 10;
+    const static int kInfoPosition = 150;
+    const static int kInfoLength = 180;
     ofLight light;
     ofEasyCam cam;
     ofImage background;
@@ -44,12 +47,15 @@ private:
 //    ofSpherePrimitive celestial_bodies[10] = {sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto};
     vector<CelestialBody> celestial_bodies;
     
-    // GUI
+    
     bool show_help;
     bool show_names;
     bool show_radius;
+    bool show_distances;
+    bool show_speeds;
+    bool show_periods;
     bool animate_orbits;
     void DrawHelp();
-    void DrawRadii();
+    void DrawInformationBox(int count, char type);
 
 };
