@@ -25,30 +25,18 @@ class ofApp : public ofBaseApp{
     
     private:
         const static int kNumCelestialBodies = 10;
-        constexpr const static double kDampeningScalerRadius = 0.85;
-        constexpr const static double kRadiusScaler = 0.0001;
+        constexpr const static double kDampeningScalerRadius = 0.95;
+        constexpr const static double kRadiusScaler = 0.0002;
         const static int kAvgRadius = 89703;
         constexpr const static double kDampeningScalerDistance = 0.75;
-        constexpr const static double kDistanceScaler = 0.088;
+        constexpr const static double kDistanceScaler = 0.05;
         constexpr const static double kAvgDistance = 590.64;
-        ofSpherePrimitive sun;
-        ofSpherePrimitive mercury;
-        ofSpherePrimitive venus;
-        ofSpherePrimitive earth;
-        ofSpherePrimitive mars;
-        ofSpherePrimitive saturn;
-        ofSpherePrimitive jupiter;
-        ofSpherePrimitive neptune;
-        ofSpherePrimitive uranus;
-        ofSpherePrimitive pluto;
         ofLight light;
-        ofTexture mTexSun;
-        ofTexture mTexEarth;
-        ofTexture mTex;
         ofEasyCam cam;
+        ofImage background;
     
         string names[kNumCelestialBodies] = {"Sun", "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
-        double diameters[kNumCelestialBodies] = {1391000/5, 4879, 12104, 12756, 6792, 142984, 120536, 51118, 49528, 2370};
+        double diameters[kNumCelestialBodies] = {1391000, 4879, 12104, 12756, 6792, 142984, 120536, 51118, 49528, 2370};
         double distance[kNumCelestialBodies] = {0, 57.9, 50.3, 41.4, 78.3, 550.7, 654.9, 1439, 1622.6, 1411.3};
         string textures[kNumCelestialBodies] = {"sun.jpg", "mercury.jpg", "venus.gif", "earth.jpg", "mars.png", "jupiter.jpg", "saturn.jpg", "uranus.jpg", "neptune.jpg", "pluto.jpg"};
     //    ofSpherePrimitive celestial_bodies[10] = {sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto};
