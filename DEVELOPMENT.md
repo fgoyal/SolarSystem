@@ -13,7 +13,7 @@ I mostly experimented with manipulating different 3d shapes using OpenFramework'
 ![scaled system errors](ScalingIssue.png)
 - Updated model so that the radius's of the planets were normalized to come closer to the average. With the normalized sizes but regularly scaled distances, the planets spread across too far.
 ![distance scaling issues](NormalizedSizeDistanceUnscaled.png)
-
+- Both distances from sun and radius's of planets are scaled to be closer to average.
 
 
 ## Sources
