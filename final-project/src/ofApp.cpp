@@ -172,7 +172,7 @@ void ofApp::draw(){
     // draw the planets and stars
     cam.begin();
     for (int i = 0; i < kNumCelestialBodies; i++) {
-        celestial_bodies[i].draw(show_names, show_radius);
+        celestial_bodies[i].draw(show_names, show_radius, animate_orbits);
 //        celestial_bodies[i].GetObject().setParent(celestial_bodies[0]);
     }
     cam.end();
@@ -192,6 +192,7 @@ void ofApp::DrawHelp() {
         helpStream << endl;
         helpStream << "1: show planet names: " << (show_names ? "YES" : "NO") << endl;
         helpStream << "2: show planet radiuses: " << (show_radius ? "YES" : "NO") << endl;
+        helpStream << "s: animate planet orbits: " << (animate_orbits ? "YES" : "NO") << endl;
 //        helpStream << "c: cycle cameras: ";
 //        switch (camIndex) {
 //            case 0:
@@ -221,6 +222,48 @@ void ofApp::DrawHelp() {
 }
 
 //--------------------------------------------------------------
+// Draw help panel (TODO: use ofxGui)
+void ofApp::DrawRadii() {
+    stringstream helpStream;
+    
+    ofSetColor(255);
+    
+    helpStream << "h: " << (show_help ? "hide" : "show") << " help";
+    
+    if (show_help) {
+        helpStream << endl;
+        helpStream << "1: show planet names: " << (show_names ? "YES" : "NO") << endl;
+        helpStream << "2: show planet radiuses: " << (show_radius ? "YES" : "NO") << endl;
+        helpStream << "s: animate planet orbits: " << (animate_orbits ? "YES" : "NO") << endl;
+        //        helpStream << "c: cycle cameras: ";
+        //        switch (camIndex) {
+        //            case 0:
+        //                helpStream << "ofEasyCam";
+        //                break;
+        //
+        //            case 1:
+        //                helpStream << "ofxSphereCam";
+        //                break;
+        //
+        //            case 2:
+        //                helpStream << "freecam";
+        //                break;
+        //
+        //        };
+        //        helpStream << endl;
+        //        helpStream << "move cameras with mouse:" << endl
+        //        << "  - left button: rotate" << endl
+        //        << "  - middle or m: xy translate" << endl
+        //        << "  - right: z translate" << endl;
+        //        helpStream << "r: reset cam" << endl;
+        helpStream << "f: toggle full screen";
+    }
+    
+    ofDrawBitmapStringHighlight(helpStream.str(), -ofGetScreenWidth()/2 + 10, -ofGetScreenHeight()/2 + 10);
+    
+}
+
+//--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if (key =='f') {
         ofToggleFullscreen();
@@ -230,6 +273,10 @@ void ofApp::keyPressed(int key){
     }
     if (key == '2') {
         show_radius = !show_radius;
+    }
+    
+    if (key == 's') {
+        animate_orbits = !animate_orbits;
     }
     
     if (key == 'h') {

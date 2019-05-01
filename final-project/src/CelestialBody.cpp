@@ -21,23 +21,12 @@ CelestialBody::CelestialBody(const string _name, const double _scaled_radius, co
     
 }
 
-void CelestialBody::draw(bool show_labels, bool show_radiuses) {
-    // draw sphere with texture
-//    planet_body.rotate(10, 1.0, 0.0, 0.0);
-    
+void CelestialBody::draw(bool show_labels, bool show_radiuses, bool animate_orbits) {
     // spin around axis
-//    planet_body.rotate(1, 0, 1.0, 0.0);
+    planet_body.rotate(1, 0, 1.0, 0.0);
     
-    // orbit around sun
-    double time_per_degree = orbital_period / kAngles;
-    std::cout << name << ": " << time_per_degree << '\n';
-//    std::cout << "speed: " << circumference / orbital_speed << '\n';
 
-    if (time_per_degree != 0) {
-        rotation.makeRotate(ofGetFrameNum() / time_per_degree , 0, 1, 0);
-    }
-    position = rotation * center;
-    planet_body.setPosition(position);
+    planet_body.setPosition(GetPosition(animate_orbits));
     
     // draw planet with texture
     texture.bind();
@@ -51,6 +40,23 @@ void CelestialBody::draw(bool show_labels, bool show_radiuses) {
     if (show_radiuses) {
         ShowRadiuses();
     }
+}
+
+ofVec3f CelestialBody::GetPosition(bool animate_orbits) {
+    if (animate_orbits) {
+        // orbit around sun
+        double time_per_degree = orbital_period / kAngles;
+        
+        if (time_per_degree != 0) {
+            rotation.makeRotate(ofGetFrameNum() / time_per_degree + 90, 0, 1, 0);
+        }
+        position = rotation * center;
+        return position;
+    } else {
+        position = ofVec3f(distance_from_sun, 0, 0);
+        return position;
+    }
+    
 }
 
 void CelestialBody::ShowNames() {

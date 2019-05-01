@@ -31,9 +31,11 @@ private:
 public:
     CelestialBody(const string _name, const double _scaled_radius, const double _real_radius, const string _image, const double _orbital_speed, const double _orbital_period, const double _distance_from_sun);
     
-//    void SetTexture(string set_image);
-//    void SetPosition(ofVec3f set_position);
-    void draw(bool show_labels, bool show_radiuses);
+    /**
+     * Create the planet with the texture wrapped around it
+     */
+    void draw(bool show_labels, bool show_radiuses, bool animate_orbits);
+    ofVec3f GetPosition(bool animate_orbits);
     void ShowNames();
     void ShowRadiuses();
     

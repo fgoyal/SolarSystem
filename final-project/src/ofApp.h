@@ -48,6 +48,8 @@ private:
     bool show_help;
     bool show_names;
     bool show_radius;
+    bool animate_orbits;
     void DrawHelp();
+    void DrawRadii();
 
 };
