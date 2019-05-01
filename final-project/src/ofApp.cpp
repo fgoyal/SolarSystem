@@ -142,7 +142,8 @@ void ofApp::setup(){
 //        ofVec3f position(total_distance, 0, 0);
 //        cout << names[i] << ": " << scaled_radius << '\n';
 //        cout << names[i] << ": " << total_distance << '\n';
-        CelestialBody planet(names[i], scaled_radius, diameters[i]/2, textures[i], orbital_speed[i], total_distance, ofQuaternion(0.01, ofVec3f(0.0, 1.0, 0.0)));
+        
+        CelestialBody planet(names[i], scaled_radius, diameters[i]/2, textures[i], orbital_speed[i], orbital_period[i], total_distance);
         celestial_bodies.push_back(planet);
         total_distance += scaled_radius;
     }

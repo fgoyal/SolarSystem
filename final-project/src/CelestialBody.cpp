@@ -7,26 +7,39 @@
 
 #include <CelestialBody.h>
 
-CelestialBody::CelestialBody(const string _name, const double _scaled_radius, const double _real_radius, const string _image, const double _rotation_period, const double _position, const ofQuaternion _rotation) {
+CelestialBody::CelestialBody(const string _name, const double _scaled_radius, const double _real_radius, const string _image, const double _orbital_speed, const double _orbital_period, const double _distance_from_sun) {
     name = _name;
     scaled_radius = _scaled_radius;
     real_radius = _real_radius;
     image = _image;
-    position = _position;
-    rotation_period = _rotation_period;
-    rotations = _rotation;
-    
+    distance_from_sun = _distance_from_sun;
+    orbital_speed = _orbital_speed;
+    orbital_period = _orbital_period;
+    center = ofVec3f(0, 0, distance_from_sun);
     ofLoadImage(texture, image);
     planet_body.setRadius(scaled_radius);
-    planet_body.setPosition(_position, 0, 0);
     
 }
 
 void CelestialBody::draw(bool show_labels, bool show_radiuses) {
     // draw sphere with texture
 //    planet_body.rotate(10, 1.0, 0.0, 0.0);
-    planet_body.rotate(1, 0, 1.0, 0.0);
-    rotations.makeRotate(ofGetFrameNum(), 0, 1, 0);
+    
+    // spin around axis
+//    planet_body.rotate(1, 0, 1.0, 0.0);
+    
+    // orbit around sun
+    double time_per_degree = orbital_period / kAngles;
+    std::cout << name << ": " << time_per_degree << '\n';
+//    std::cout << "speed: " << circumference / orbital_speed << '\n';
+
+    if (time_per_degree != 0) {
+        rotation.makeRotate(ofGetFrameNum() / time_per_degree , 0, 1, 0);
+    }
+    position = rotation * center;
+    planet_body.setPosition(position);
+    
+    // draw planet with texture
     texture.bind();
     planet_body.draw();
     texture.unbind();
@@ -42,14 +55,14 @@ void CelestialBody::draw(bool show_labels, bool show_radiuses) {
 
 void CelestialBody::ShowNames() {
     ofPushMatrix();
-    ofTranslate(position, scaled_radius + 15, 0);
+//    ofTranslate(position, scaled_radius + 15, 0);
     ofDrawBitmapString(name, 0, 0);
     ofPopMatrix();
 }
 
 void CelestialBody::ShowRadiuses() {
     ofPushMatrix();
-    ofTranslate(position, scaled_radius + 5, 0);
+//    ofTranslate(position, scaled_radius + 5, 0);
     int radius = (int) real_radius;
     std::string radius_string = "Radius: " + std::to_string(radius) + "km";
     ofDrawBitmapString(radius_string, 0, 0);

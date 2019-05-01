@@ -12,20 +12,24 @@
 
 class CelestialBody {
 private:
+    constexpr const static double kPi = 3.1415;
+    const static int kAngles = 360;
+    
     string name;
     ofTexture texture;
     string image;
     ofSpherePrimitive planet_body;
     double scaled_radius;
     double real_radius;
-    double orbit;
-    double orbit_radius;
-    double rotation_period;
-    ofQuaternion rotations;
-    double position;
+    double orbital_speed;
+    double orbital_period;
+    ofQuaternion rotation;
+    double distance_from_sun;
+    ofVec3f center;
+    ofVec3f position;
     
 public:
-    CelestialBody(const string _name, const double _scaled_radius, const double _real_radius, const string _image, const double _rotation_period, const double _position, const ofQuaternion _rotation);
+    CelestialBody(const string _name, const double _scaled_radius, const double _real_radius, const string _image, const double _orbital_speed, const double _orbital_period, const double _distance_from_sun);
     
 //    void SetTexture(string set_image);
 //    void SetPosition(ofVec3f set_position);
@@ -37,16 +41,8 @@ public:
         return name;
     }
     
-    double GetOrbit() {
-        return orbit;
-    }
-    
-    double GetOrbitRadius() {
-        return orbit_radius;
-    }
-    
     ofQuaternion GetRotations() {
-        return rotations;
+        return rotation;
     }
     
     double GetRadius() {
