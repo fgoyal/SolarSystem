@@ -21,13 +21,14 @@ private:
     double orbit_radius;
     double rotation_period;
     vector<ofQuaternion> rotations;
-    ofVec3f position;
+    double position;
     
 public:
-    CelestialBody(const string set_name, const double set_radius, const string set_image, const double set_rotation_period, const ofVec3f set_position);
+    CelestialBody(const string set_name, const double set_radius, const string set_image, const double set_rotation_period, const double set_position);
     
 //    void SetTexture(string set_image);
 //    void SetPosition(ofVec3f set_position);
+    void draw();
     
     string GetName() {
         return name;

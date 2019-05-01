@@ -148,10 +148,10 @@ void ofApp::setup(){
             total_distance = 0;
         }
 
-        ofVec3f position(total_distance, 0, 0);
-        cout << names[i] << ": " << scaled_radius << '\n';
-        cout << names[i] << ": " << total_distance << '\n';
-        CelestialBody planet(names[i], scaled_radius, textures[i], 0, position);
+//        ofVec3f position(total_distance, 0, 0);
+//        cout << names[i] << ": " << scaled_radius << '\n';
+//        cout << names[i] << ": " << total_distance << '\n';
+        CelestialBody planet(names[i], scaled_radius, textures[i], 0, total_distance);
         celestial_bodies.push_back(planet);
         total_distance += scaled_radius;
     }
@@ -189,14 +189,15 @@ void ofApp::draw(){
 
     cam.begin();
     for (int i = 0; i < kNumCelestialBodies; i++) {
-        celestial_bodies[i].GetTexture().bind();
-        if (i == 0) {
-            celestial_bodies[i].GetObject().rotate(0.01, 0.0, 0.1, 0);
-        } else {
-            celestial_bodies[i].GetObject().rotate(0.1, 0.0, 0.1, 0); // rotate on itself
-        }
-        celestial_bodies[i].GetObject().draw();
-        celestial_bodies[i].GetTexture().unbind();
+//        celestial_bodies[i].GetTexture().bind();
+//        if (i == 0) {
+//            celestial_bodies[i].GetObject().rotate(0.01, 0.0, 0.1, 0);
+//        } else {
+//            celestial_bodies[i].GetObject().rotate(0.1, 0.0, 0.1, 0); // rotate on itself
+//        }
+//        celestial_bodies[i].GetObject().draw();
+//        celestial_bodies[i].GetTexture().unbind();
+        celestial_bodies[i].draw();
     }
     cam.end();
 }

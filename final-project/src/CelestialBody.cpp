@@ -7,7 +7,7 @@
 
 #include <CelestialBody.h>
 
-CelestialBody::CelestialBody(const string set_name, const double set_radius, const string set_image, const double set_rotation_period, const ofVec3f set_position) {
+CelestialBody::CelestialBody(const string set_name, const double set_radius, const string set_image, const double set_rotation_period, const double set_position) {
     name = set_name;
     radius = set_radius;
     image = set_image;
@@ -16,10 +16,20 @@ CelestialBody::CelestialBody(const string set_name, const double set_radius, con
     
     ofLoadImage(texture, image);
     planet_body.setRadius(radius);
-    planet_body.setPosition(set_position);
+    planet_body.setPosition(set_position, 0, 0);
     
 }
 
+void CelestialBody::draw() {
+    texture.bind();
+    planet_body.draw();
+    texture.unbind();
+    
+    ofPushMatrix();
+    ofTranslate(position, radius + 1, 0);
+    ofDrawBitmapString(name, 0, 0);
+    ofPopMatrix();
+}
 //void CelestialBody::SetTexture(string set_image) {
 //    texture.loadImage(set_image);
 //}
