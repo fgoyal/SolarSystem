@@ -56,7 +56,6 @@ ofVec3f CelestialBody::GetPosition(bool animate_orbits, bool show_inclination) {
             } else {
                 rotation.makeRotate(ofGetFrameNum() / time_per_degree + kQuarter, 0, 1, 0);
             }
-            
         }
         
         position = rotation * center;

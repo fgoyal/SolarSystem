@@ -75,6 +75,7 @@ void ofApp::DrawHelp() {
     
     ofDrawBitmapStringHighlight(helpStream.str(), kHelpPosition, 0);
     
+    // draw information boxes
     int count = 0;
     if (show_radius) {
         DrawInformationBox(count, 'r');
