@@ -23,7 +23,7 @@ CelestialBody::CelestialBody(const string _name, const double _scaled_radius, co
 
 void CelestialBody::draw(bool show_labels, bool animate_orbits) {
     // spin around axis
-    planet_body.rotate(1, 0, 1.0, 0.0);
+//    planet_body.rotate(1, 1, 0, 0.0);
     
 
     planet_body.setPosition(GetPosition(animate_orbits));
@@ -58,7 +58,7 @@ ofVec3f CelestialBody::GetPosition(bool animate_orbits) {
 void CelestialBody::ShowNames() {
     ofPushMatrix();
 //    ofTranslate(position, scaled_radius + 15, 0);
-    ofDrawBitmapString(name, 0, 0);
+    ofDrawBitmapString(name, position);
     ofPopMatrix();
 }
 

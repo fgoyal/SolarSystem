@@ -48,13 +48,13 @@ private:
     vector<CelestialBody> celestial_bodies;
     
     
-    bool show_help;
-    bool show_names;
-    bool show_radius;
-    bool show_distances;
-    bool show_speeds;
-    bool show_periods;
-    bool animate_orbits;
+    bool show_help = true;
+    bool show_names = true;
+    bool show_radius = false;
+    bool show_distances = false;
+    bool show_speeds = false;
+    bool show_periods = false;
+    bool animate_orbits = true;
     void DrawHelp();
     void DrawInformationBox(int count, char type);
 
