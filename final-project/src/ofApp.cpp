@@ -47,7 +47,7 @@ void ofApp::draw(){
     // draw the planets and stars
     cam.begin();
     for (int i = 0; i < kNumCelestialBodies; i++) {
-        celestial_bodies[i].draw(show_names, animate_orbits);
+        celestial_bodies[i].draw(show_names, animate_orbits, show_orbit, show_inclination);
     }
     cam.end();
     
@@ -61,21 +61,19 @@ void ofApp::DrawHelp() {
     
     ofSetColor(255);
     
-    helpStream << "h: " << (show_help ? "hide" : "show") << " help";
+    helpStream << endl;
+    helpStream << "n: show planet names: " << (show_names ? "YES" : "NO") << endl;
+    helpStream << "1: show planet radii: " << (show_radius ? "YES" : "NO") << endl;
+    helpStream << "2: show planet distances: " << (show_distances ? "YES" : "NO") << endl;
+    helpStream << "3: show planet orbital velocities: " << (show_speeds ? "YES" : "NO") << endl;
+    helpStream << "4: show planet orbital periods: " << (show_periods ? "YES" : "NO") << endl;
+    helpStream << "o: show orbit lines: " << (show_orbit ? "YES" : "NO") << endl;
+    helpStream << "i: show inclination: " << (show_inclination ? "YES" : "NO") << endl;
+    helpStream << "a: animate planet orbits: " << (animate_orbits ? "YES" : "NO") << endl;
+    helpStream << "v: reset camera" << endl;
+    helpStream << "f: toggle full screen";
     
-    if (show_help) {
-        helpStream << endl;
-        helpStream << "n: show planet names: " << (show_names ? "YES" : "NO") << endl;
-        helpStream << "1: show planet radii: " << (show_radius ? "YES" : "NO") << endl;
-        helpStream << "2: show planet distances: " << (show_distances ? "YES" : "NO") << endl;
-        helpStream << "3: show planet orbital velocities: " << (show_speeds ? "YES" : "NO") << endl;
-        helpStream << "4: show planet orbital periods: " << (show_periods ? "YES" : "NO") << endl;
-        helpStream << "o: animate planet orbits: " << (animate_orbits ? "YES" : "NO") << endl;
-        helpStream << "v: reset camera" << endl;
-        helpStream << "f: toggle full screen";
-    }
-    
-    ofDrawBitmapStringHighlight(helpStream.str(), kHelpPosition, kHelpPosition);
+    ofDrawBitmapStringHighlight(helpStream.str(), kHelpPosition, 0);
     
     int count = 0;
     if (show_radius) {
@@ -161,6 +159,14 @@ void ofApp::keyPressed(int key){
     }
     
     if (key == 'o') {
+        show_orbit = !show_orbit;
+    }
+    
+    if (key == 'i') {
+        show_inclination = !show_inclination;
+    }
+    
+    if (key == 'a') {
         animate_orbits = !animate_orbits;
     }
     

@@ -67,12 +67,12 @@ private:
     /**
      * y position for first information box
      */
-    const static int kInfoPosition = 150;
+    const static int kInfoPosition = 160;
     
     /**
      * height of each info box
      */
-    const static int kInfoLength = 180;
+    const static int kInfoLength = 160;
     
     
     ofLight light;
@@ -105,6 +105,8 @@ private:
     bool show_distances = false;
     bool show_speeds = false;
     bool show_periods = false;
+    bool show_orbit = true;
+    bool show_inclination = true;
     bool animate_orbits = true;
     
     /**

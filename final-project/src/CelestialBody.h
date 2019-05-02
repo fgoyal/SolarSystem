@@ -56,7 +56,7 @@ public:
      * @param show_labels - true if planet names are displayed with planet
      * @param animate_orbits - true if animation is shown
      */
-    void draw(bool show_labels, bool animate_orbits);
+    void draw(bool show_labels, bool animate_orbits, bool show_orbits, bool show_inclination);
     
     /**
      * Returns position of planets.
@@ -64,7 +64,7 @@ public:
      * If not animated, returns distance from sun
      * @param animate_orbits - true if animation is shown
      */
-    ofVec3f GetPosition(bool animate_orbits);
+    ofVec3f GetPosition(bool animate_orbits, bool show_inclination);
     
     /**
      * Displays planet names above planet object
@@ -74,12 +74,12 @@ public:
     /**
      * Sets up orbit lines
      */
-    void SetupOrbit();
+    void SetupOrbit(bool animate_orbits, bool show_inclination);
     
     /**
      * Draws orbit lines
      */
-    void DrawOrbit();
+    void DrawOrbit(bool animate_orbits, bool show_inclination);
 
 };
 

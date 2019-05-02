@@ -26,10 +26,10 @@ CelestialBody::CelestialBody(const string _name, const double _scaled_radius, co
 }
 
 //--------------------------------------------------------------
-void CelestialBody::draw(bool show_labels, bool animate_orbits) {
+void CelestialBody::draw(bool show_labels, bool animate_orbits, bool show_orbits, bool show_inclination) {
     
     // set position of object
-    planet_body.setPosition(GetPosition(animate_orbits));
+    planet_body.setPosition(GetPosition(animate_orbits, show_inclination));
     
     // draw planet with texture
     texture.bind();
@@ -40,16 +40,23 @@ void CelestialBody::draw(bool show_labels, bool animate_orbits) {
         ShowNames();
     }
     
-    DrawOrbit();
+    if (show_orbits) {
+        DrawOrbit(animate_orbits, show_inclination);
+    }
 }
 
 //--------------------------------------------------------------
-ofVec3f CelestialBody::GetPosition(bool animate_orbits) {
+ofVec3f CelestialBody::GetPosition(bool animate_orbits, bool show_inclination) {
     if (animate_orbits) {
         double time_per_degree = orbital_period / kAngles;
 
         if (time_per_degree != 0) {
-            rotation.makeRotate(ofGetFrameNum() / time_per_degree + kQuarter, inclination_x, inclination_y, 0);
+            if (show_inclination) {
+                rotation.makeRotate(ofGetFrameNum() / time_per_degree + kQuarter, inclination_x, inclination_y, 0);
+            } else {
+                rotation.makeRotate(ofGetFrameNum() / time_per_degree + kQuarter, 0, 1, 0);
+            }
+            
         }
         
         position = rotation * center;
@@ -69,7 +76,7 @@ void CelestialBody::ShowNames() {
 }
 
 //--------------------------------------------------------------
-void CelestialBody::SetupOrbit() {
+void CelestialBody::SetupOrbit(bool animate_orbits, bool show_inclination) {
     ofVec3f center = ofVec3f(0, 0, distance_from_sun);
     
     orbit.setMode(OF_PRIMITIVE_LINE_STRIP);
@@ -78,14 +85,18 @@ void CelestialBody::SetupOrbit() {
     ofQuaternion rot;
     
     for (int i = 0; i <= kAngles; i++) {
-        rot.makeRotate(i, inclination_x, inclination_y, 0);
+        if (animate_orbits && show_inclination) {
+            rot.makeRotate(i, inclination_x, inclination_y, 0);
+        } else {
+            rot.makeRotate(i, 0, 1, 0);
+        }
         orbit.addVertex(rot * center);
     }
 }
 
 //--------------------------------------------------------------
-void CelestialBody::DrawOrbit() {
-    SetupOrbit();
+void CelestialBody::DrawOrbit(bool animate_orbits, bool show_inclination) {
+    SetupOrbit(animate_orbits, show_inclination);
     ofSetColor(kWhite, kWhite, kWhite, kOpacity);
     orbit.draw();
     ofSetColor(kWhite);
