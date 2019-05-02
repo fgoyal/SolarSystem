@@ -17,11 +17,9 @@ Users can choose how much information is displayed on the left side.
 
 ![information](development_images/information_shown.png)
 
-A masonry effect is used to display the information cleanly.
-
-![masonry](development_images/masonry_effect.png)
-
 Users can also choose if the solar system is viewed with the orbital inclines or not.
 
 ![no incline](development_images/in_line.png)
 
+### Sources
+Planet Information: https://nssdc.gsfc.nasa.gov/planetary/factsheet/
