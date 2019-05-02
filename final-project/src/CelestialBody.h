@@ -9,11 +9,12 @@
 #define CelestialBody_h
 
 #include "ofMain.h"
+#include <math.h>
 
 class CelestialBody {
 private:
-    constexpr const static double kPi = 3.1415;
     const static int kAngles = 360;
+    const static int kQuarter = 90;
     
     string name;
     ofTexture texture;
@@ -22,6 +23,7 @@ private:
     double scaled_radius;
     double orbital_speed;
     double orbital_period;
+    double inclination;
     ofQuaternion rotation;
     double distance_from_sun;
     ofVec3f center;
@@ -35,9 +37,10 @@ public:
      * @param _image - path of planet texture
      * @param _orbital_speed - orbital speed of planet in km/s
      * @param _orbital_period - orbital period of planet in days
+     * @param _inclination - degree inclination in axis
      * @param _distance_from_sun - distance from the sun
      */
-    CelestialBody(const string _name, const double _scaled_radius, const string _image, const double _orbital_speed, const double _orbital_period, const double _distance_from_sun);
+    CelestialBody(const string _name, const double _scaled_radius, const string _image, const double _orbital_speed, const double _orbital_period, const double _inclination, const double _distance_from_sun);
     
     /**
      * Create the planet with the texture wrapped around it

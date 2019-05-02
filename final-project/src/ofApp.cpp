@@ -24,7 +24,7 @@ void ofApp::setup(){
             total_distance = 0;
         }
         
-        CelestialBody planet(names[i], scaled_radius, textures[i], orbital_speed[i], orbital_period[i], total_distance);
+        CelestialBody planet(names[i], scaled_radius, textures[i], orbital_speed[i], orbital_period[i], inclination[i], total_distance);
         celestial_bodies.push_back(planet);
         total_distance += scaled_radius;
     }

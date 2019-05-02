@@ -87,6 +87,7 @@ private:
     double distance[kNumCelestialBodies] = {0, 57.9, 50.3, 41.4, 78.3, 550.7, 654.9, 1439, 1622.6, 1411.3};
     double orbital_speed[kNumCelestialBodies] = {0, 47.87, 35.02, 29.78, 24.077, 13.07, 9.69, 6.81, 5.43, 4.67};
     double orbital_period[kNumCelestialBodies] = {0, 88, 224.7, 365.2, 687, 4331, 10747, 30589, 59800, 90560};
+    double inclination[kNumCelestialBodies] = {0, 7.0, 3.4, 0.0, 1.9, 1.3, 2.5, 0.8, 1.8, 17.2};
     string textures[kNumCelestialBodies] = {"sun.jpg", "mercury.jpg", "venus.gif", "earth.jpg", "mars.png", "jupiter.jpg", "saturn.jpg", "uranus.jpg", "neptune.jpg", "pluto.jpg"};
     
     /**
