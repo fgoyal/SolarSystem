@@ -24,7 +24,7 @@ void ofApp::setup(){
             total_distance = 0;
         }
         
-        CelestialBody planet(names[i], scaled_radius, diameters[i]/2, textures[i], orbital_speed[i], orbital_period[i], total_distance);
+        CelestialBody planet(names[i], scaled_radius, textures[i], orbital_speed[i], orbital_period[i], total_distance);
         celestial_bodies.push_back(planet);
         total_distance += scaled_radius;
     }
@@ -38,31 +38,24 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    float screenWidth = ofGetWidth();
-    float screenHeight = ofGetHeight();
-    
     ofDisableDepthTest();
-    background.draw(0, 0, screenWidth, screenHeight);
+    background.draw(0, 0, ofGetScreenWidth(), ofGetScreenHeight());
     
     ofPopMatrix();
     ofEnableDepthTest();
-    
-    // set center of screen to 0,0
-//    ofTranslate(screenWidth/2, screenHeight/2);
-    
+
     // draw the planets and stars
-    
     cam.begin();
     for (int i = 0; i < kNumCelestialBodies; i++) {
         celestial_bodies[i].draw(show_names, animate_orbits);
-//        celestial_bodies[i].GetObject().setParent(celestial_bodies[0]);
     }
     cam.end();
+    
+    // draw help box
     DrawHelp();
 }
 
 //--------------------------------------------------------------
-// Draw help panel (TODO: use ofxGui)
 void ofApp::DrawHelp() {
     stringstream helpStream;
     
@@ -109,6 +102,8 @@ void ofApp::DrawInformationBox(int count, char type) {
     stringstream helpStream;
     
     ofSetColor(255);
+    
+    // set title based on type of information
     switch (type) {
         case 'r': helpStream << "Planet Radii" << endl;
             break;
@@ -120,6 +115,7 @@ void ofApp::DrawInformationBox(int count, char type) {
             break;
     }
 
+    // display information for each planet
     for (int i = 0; i < kNumCelestialBodies; i++) {
         helpStream << names[i] << ": ";
         switch (type) {
@@ -134,6 +130,7 @@ void ofApp::DrawInformationBox(int count, char type) {
         }
     }
     
+    // set position of information
     ofDrawBitmapStringHighlight(helpStream.str(), kHelpPosition, kInfoPosition + count * kInfoLength);
 }
 
