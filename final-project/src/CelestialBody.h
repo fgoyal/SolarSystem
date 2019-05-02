@@ -15,19 +15,28 @@ class CelestialBody {
 private:
     const static int kAngles = 360;
     const static int kQuarter = 90;
+    const static int kWhite = 255;
+    const static int kOpacity = 60;
     
     string name;
     ofTexture texture;
     string image;
     ofSpherePrimitive planet_body;
+    
     double scaled_radius;
     double orbital_speed;
     double orbital_period;
-    double inclination;
-    ofQuaternion rotation;
     double distance_from_sun;
+    
+    ofQuaternion rotation;
     ofVec3f center;
     ofVec3f position;
+    ofVboMesh orbit;
+    
+    double inclination;
+    double inclination_x;
+    double inclination_y;
+
     
 public:
     /**
@@ -61,6 +70,16 @@ public:
      * Displays planet names above planet object
      */
     void ShowNames();
+    
+    /**
+     * Sets up orbit lines
+     */
+    void SetupOrbit();
+    
+    /**
+     * Draws orbit lines
+     */
+    void DrawOrbit();
 
 };
 

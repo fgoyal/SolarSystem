@@ -8,7 +8,7 @@
 #include <CelestialBody.h>
 #include <math.h>
 
-
+//--------------------------------------------------------------
 CelestialBody::CelestialBody(const string _name, const double _scaled_radius, const string _image, const double _orbital_speed, const double _orbital_period, const double _inclination, const double _distance_from_sun) {
     name = _name;
     scaled_radius = _scaled_radius;
@@ -20,9 +20,12 @@ CelestialBody::CelestialBody(const string _name, const double _scaled_radius, co
     center = ofVec3f(0, 0, distance_from_sun);
     ofLoadImage(texture, image);
     planet_body.setRadius(scaled_radius);
+    inclination_x = sin(inclination * 2 * PI / kAngles);
+    inclination_y = cos(inclination * 2 * PI / kAngles);
     
 }
 
+//--------------------------------------------------------------
 void CelestialBody::draw(bool show_labels, bool animate_orbits) {
     
     // set position of object
@@ -36,17 +39,17 @@ void CelestialBody::draw(bool show_labels, bool animate_orbits) {
     if (show_labels) {
         ShowNames();
     }
+    
+    DrawOrbit();
 }
 
+//--------------------------------------------------------------
 ofVec3f CelestialBody::GetPosition(bool animate_orbits) {
     if (animate_orbits) {
         double time_per_degree = orbital_period / kAngles;
-        
-        double x = sin(inclination * 2 * PI / kAngles);
-        double y = cos(inclination * 2 * PI / kAngles);
 
         if (time_per_degree != 0) {
-            rotation.makeRotate(ofGetFrameNum() / time_per_degree + kQuarter, x, y, 0);
+            rotation.makeRotate(ofGetFrameNum() / time_per_degree + kQuarter, inclination_x, inclination_y, 0);
         }
         
         position = rotation * center;
@@ -56,11 +59,34 @@ ofVec3f CelestialBody::GetPosition(bool animate_orbits) {
         position = ofVec3f(distance_from_sun, 0, 0);
         return position;
     }
-    
 }
 
+//--------------------------------------------------------------
 void CelestialBody::ShowNames() {
     ofPushMatrix();
     ofDrawBitmapString(name, position);
     ofPopMatrix();
+}
+
+//--------------------------------------------------------------
+void CelestialBody::SetupOrbit() {
+    ofVec3f center = ofVec3f(0, 0, distance_from_sun);
+    
+    orbit.setMode(OF_PRIMITIVE_LINE_STRIP);
+    orbit.clear();
+    
+    ofQuaternion rot;
+    
+    for (int i = 0; i <= kAngles; i++) {
+        rot.makeRotate(i, inclination_x, inclination_y, 0);
+        orbit.addVertex(rot * center);
+    }
+}
+
+//--------------------------------------------------------------
+void CelestialBody::DrawOrbit() {
+    SetupOrbit();
+    ofSetColor(kWhite, kWhite, kWhite, kOpacity);
+    orbit.draw();
+    ofSetColor(kWhite);
 }
